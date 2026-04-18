@@ -2,7 +2,7 @@ function Header () {
     return (
             <section className="d-flex align-items-center justify-content-center text-center text-white"
                 style={{
-                    backgroundImage:"linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/src/assets/img/header.jpg')",
+                    backgroundImage:"linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('./src/assets/img/header.jpg')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     minHeight: "40vh",
