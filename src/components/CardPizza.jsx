@@ -7,7 +7,7 @@ function CardPizza (props) {
          <Card>
             <Card.Img variant="top" src={props.img} />
                 <Card.Body>
-                    <h4 className='fw-bold'>{props.name}</h4><hr />
+                    <h4 className='fw-bold text-capitalize'>{props.name}</h4><hr />
                     <Card.Text>Descripción: </Card.Text>
                     <Card.Text className='blockquote-footer mt-2'> {props.desc}</Card.Text>
                     <Card.Text>Ingredientes: </Card.Text>
