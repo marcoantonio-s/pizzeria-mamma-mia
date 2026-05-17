@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import NavBar from './NavBar'
+import NavBar from '../components/NavBar'
 import { pizzaCart } from '../data/pizzas';
+import Footer from '../components/Footer';
 
 export default function Cart() {
 
@@ -26,6 +27,7 @@ const modificarCantidad = (operacion, id)=>{
 
   return (
     <>
+    <NavBar/>
     <div className='container my-5'>
         <h1 className='fw-bold mb-3'>Detalles del pedido</h1>
         <div className='row'>
@@ -60,6 +62,7 @@ const modificarCantidad = (operacion, id)=>{
             </div>
         </div>
     </div>
+    <Footer/>
     </>
   )
 }

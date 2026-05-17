@@ -1,4 +1,6 @@
 import { useState } from "react";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 function Login () {
 
@@ -26,6 +28,8 @@ function Login () {
     }
 
     return (
+        <>
+        <NavBar />
       <div className="container vh-100 d-flex justify-content-center align-items-center">
             <div className="col-12 col-md-6 col-lg-4">
 
@@ -52,6 +56,8 @@ function Login () {
 
             </div>
         </div>
+        <Footer/>
+        </>
     )
 }
 export default Login;

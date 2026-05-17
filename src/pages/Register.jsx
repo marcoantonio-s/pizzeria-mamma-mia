@@ -1,4 +1,6 @@
 import { useState } from "react";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 function Register () {
 
@@ -29,6 +31,8 @@ function Register () {
     }
 
     return (
+        <>
+        <NavBar/>
       <div className="container vh-100 d-flex justify-content-center align-items-center">
             <div className="col-12 col-md-6 col-lg-4">
 
@@ -63,6 +67,8 @@ function Register () {
 
             </div>
         </div>
+        <Footer/>
+        </>
     )
 }
 export default Register;

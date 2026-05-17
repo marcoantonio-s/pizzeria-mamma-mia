@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 function Pizza () {
     
@@ -17,6 +19,8 @@ function Pizza () {
     }, [])
 
     return (
+      <>
+      <NavBar/>
         <div className="container my-5 py-5">
       <div className="row justify-content-center">
         <div className="col-12 col-md-10 col-lg-8">
@@ -50,6 +54,8 @@ function Pizza () {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
     )
 }
 export default Pizza;

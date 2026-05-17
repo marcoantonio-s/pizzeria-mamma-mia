@@ -1,9 +1,11 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import CardPizza from './CardPizza';
-import Header from './Header';
+import CardPizza from '../components/CardPizza';
+import Header from '../components/Header';
 import { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 
 
@@ -26,6 +28,7 @@ function Home() {
 
     return (
         <>
+        <NavBar/>
             <Header />
 
             <div className='container mt-5 mb-5'>
@@ -53,6 +56,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 }
