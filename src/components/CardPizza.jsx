@@ -19,7 +19,7 @@ function CardPizza (props) {
                     )}
                     <h4 className='fw-bold mt-3'>Precio: ${props.price.toLocaleString()}</h4>
                     <Button className="m-1 mt-3" variant="outline-dark">Ver más</Button>
-                    <Button className="m-1 mt-3" variant="dark">Añadir 🛒</Button>
+                    <Button className="m-1 mt-3" variant="dark" onClick={() => props.addToCart(props.id)}>Añadir 🛒</Button>
                 </Card.Body>
         </Card>
     )

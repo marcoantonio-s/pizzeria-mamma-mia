@@ -3,14 +3,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../contexts/CartContext';
 
 function NavBar () {
   
-    let total = 25000;
     let token = true;
 
+    const { total } = useContext(CartContext);
+
     return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar className='fixed-top' bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">Pizzería Mamma Mía</Navbar.Brand>
           <Nav className="me-auto">
@@ -18,7 +21,7 @@ function NavBar () {
             {token == true ? <Nav.Link as={Link} to="/login">🔐 Login</Nav.Link> : <Nav.Link href="#profile">🔐 Profile</Nav.Link>}
             {token == true ? <Nav.Link as={Link} to="/register">🔐 Register</Nav.Link> : <Nav.Link href="#logout">🔐 Logout</Nav.Link>}
           </Nav>
-          <Button variant="outline-light" as={Link} to="/cart">🛒 Total: ${total.toLocaleString()}</Button>
+          <Button variant="outline-light" as={Link} to="/cart">🛒 Total: ${(total || 0).toLocaleString()}</Button>
         </Container>
     </Navbar>
     )

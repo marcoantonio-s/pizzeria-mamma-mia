@@ -3,60 +3,47 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CardPizza from '../components/CardPizza';
 import Header from '../components/Header';
-import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-
-
+import { useContext } from 'react';
+import { ProductContext } from '../contexts/ProductContext';
+import { CartContext } from '../contexts/CartContext';
 
 function Home() {
 
-    const [productList, setProductList] = useState([]);
-
-    const getPizzas = async () => {
-        const response = await fetch("http://localhost:5001/api/pizzas");
-        const data = await response.json();
-
-        console.log(data);
-
-        setProductList(data);
-    };
-
-    useEffect(() => {
-        getPizzas();
-    }, []);
+    const { products } = useContext(ProductContext);
+    const { addToCart } = useContext(CartContext);
 
     return (
         <>
-        <NavBar/>
+            <NavBar />
             <Header />
-
             <div className='container mt-5 mb-5'>
                 <div className='container mt-5'>
                     <div className='row'>
-
-                        {productList.length > 0 ? productList.map((producto, indice) => (
+                        {products.length > 0 ? products.map((producto, indice) => (
                             <div className='col-md-4 my-3' key={indice}>
                                 <CardPizza
+                                    id={producto.id}
                                     name={producto.name}
                                     desc={producto.desc}
                                     img={producto.img}
                                     price={producto.price}
                                     ingredients={producto.ingredients}
+                                    addToCart={addToCart}
                                 />
                             </div>
                         )) : (
                             <div className='container mt-5 mb-5'>
-                                <p className='text-center'>🍕 Cargando productos...</p>
+                                <h4 className='text-center'>
+                                    🍕 Cargando productos...
+                                </h4>
                             </div>
-                        )
-                    
-                    }
-
+                        )}
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 }

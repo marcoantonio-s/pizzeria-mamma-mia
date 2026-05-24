@@ -5,10 +5,19 @@ import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from "react-router-dom";
 
+import ProductProvider from './contexts/ProductContext.jsx';
+import { CartProvider } from './contexts/CartContext.jsx';
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+
+    <CartProvider>
+      <ProductProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ProductProvider>
+    </CartProvider>
+
   </StrictMode>,
 )

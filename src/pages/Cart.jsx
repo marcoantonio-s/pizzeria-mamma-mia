@@ -1,68 +1,55 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import NavBar from '../components/NavBar'
-import { pizzaCart } from '../data/pizzas';
 import Footer from '../components/Footer';
+import { CartContext } from '../contexts/CartContext';
 
 export default function Cart() {
 
-const [pizzaCarta, setPizzaCarta] = useState (pizzaCart);
-
-const modificarCantidad = (operacion, id)=>{
-    let productoModificar = pizzaCarta.find(p => p.id === id)
-    if(operacion === "suma"){
-        productoModificar.count = productoModificar.count + 1
-    } 
-    if(operacion === "resta"){
-        productoModificar.count = productoModificar.count - 1
-    }
-    if(productoModificar.count < 1){
-        let productosActualizados = pizzaCarta.filter(p => p.id !== id)
-        setPizzaCarta(productosActualizados)
-        return
-    }
-    let productosActualizados = pizzaCarta.map(p => p.id === id ? productoModificar : p)
-
-    setPizzaCarta(productosActualizados)
-}
+const { cartProducts, addToCart, removeFromCart, total } = useContext(CartContext);
 
   return (
     <>
-    <NavBar/>
-    <div className='container my-5'>
-        <h1 className='fw-bold mb-3'>Detalles del pedido</h1>
+      <NavBar />
+
+      <div className='container flex-grow-1'>
+        <h1 className='fw-bold mb-5'>Detalles del pedido</h1>
         <div className='row'>
-            <div className='col-md-6'>
+            <div className='col-md-8 mb-5'>
                 <ul className='px-0'>
-                    {pizzaCarta.map((p, i) => 
-                    <li key={i} className='border rounded mt-2 p-1' style={{listStyle: "none"}}>
-                        <div className='d-flex justify-content-between'>
-                            <div className='d-flex align-items-center'>
-                                <img className='border rounded m-2' width={100} src={p.img} alt=""/> 
-                                <h5>{p.name}</h5>
-                            </div>
-                            <div className='mt-2 d-flex align-items-center'>
-                                <p className='mx-4 mt-2'>Total: ${(p.price * p.count).toLocaleString()}</p>
-                                <button className='btn btn-sm btn-dark'
-                                onClick={()=>modificarCantidad("suma", p.id)}
-                                >+</button>
-                                <div className='mx-2'>
-                                    <h6>{p.count}</h6> 
+                    {cartProducts.length > 0 ? (
+                        cartProducts.map((p) => (
+                        <li key={p.id} className='border rounded mt-3 p-2' style={{ listStyle: "none" }}>
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <div className='d-flex align-items-center'>
+                                        <img className='border rounded m-2' width={100} src={p.img} alt={p.name}/>
+                                    <div>
+                                        <h5 className='text-capitalize mb-1'>{p.name}</h5>
+                                        <p className='mb-0 fw-bold'>${p.price.toLocaleString()}</p>
+                                    </div>
                                 </div>
-                                <button className='btn btn-sm btn-dark ms-1'
-                                onClick={()=>modificarCantidad("resta", p.id)}
-                                >-</button>
+                                
+                                <div className='d-flex align-items-center'>
+                                    <button className='btn btn-dark btn-sm' onClick={() => removeFromCart(p.id)}>-</button>
+                                    <span className='mx-3 fw-bold'>{p.count}</span>
+                                    <button className='btn btn-dark btn-sm' onClick={() => addToCart(p.id)} >+</button>
+                                </div>
                             </div>
-                        </div>
-                    </li>)}
+                        </li>
+                    ))
+                ) : (
+                <h4 className='text-center mt-5'> 🛒 Tu carrito está vacío</h4>
+                )}
                 </ul>
-
-                <h3 className='fw-bold my-4'>Total: ${pizzaCarta.reduce((total, pizzaCarta) => total + (pizzaCarta.price * pizzaCarta.count), 0).toLocaleString()}</h3>
-                <button className='btn btn-dark mt-3'>Finalizar Compra</button>
-
+            </div>
+            <div className='col-md-4 mb-5'>
+                <div className='border rounded p-4'>
+                    <h3 className='fw-bold'>Total: ${total.toLocaleString()}</h3>
+                    <button className='btn btn-dark w-100 mt-3'>Finalizar Compra</button>
+                </div>
             </div>
         </div>
     </div>
-    <Footer/>
-    </>
-  )
-}
+    <Footer />
+        </>
+    )
+    }
