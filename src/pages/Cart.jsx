@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer';
 import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
 
 export default function Cart() {
 
 const { cartProducts, addToCart, removeFromCart, total } = useContext(CartContext);
+const { token } = useContext(UserContext);
 
   return (
     <>
@@ -44,7 +46,7 @@ const { cartProducts, addToCart, removeFromCart, total } = useContext(CartContex
             <div className='col-md-4 mb-5'>
                 <div className='border rounded p-4'>
                     <h3 className='fw-bold'>Total: ${total.toLocaleString()}</h3>
-                    <button className='btn btn-dark w-100 mt-3'>Finalizar Compra</button>
+                    <button className='btn btn-dark w-100 mt-3' disabled={!token}>Finalizar Compra</button>
                 </div>
             </div>
         </div>
