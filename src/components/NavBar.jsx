@@ -6,10 +6,11 @@ import { Link, NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 function NavBar () {
   
-    const { token, logout } = useContext(UserContext);
+    const { user, setUser, logout } = useContext(GlobalContext);
     const { total } = useContext(CartContext);
 
     return (
@@ -17,17 +18,17 @@ function NavBar () {
         <Container>
           <Navbar.Brand as={Link} to="/">Pizzería Mamma Mía</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">🍕 Home</Nav.Link>
+              <Nav.Link as={Link} to="/">🍕 Inicio</Nav.Link>
 
-              {token ? (
+              {user ? (
                 <>
-                  <Nav.Link as={Link} to="/profile">🔓 Profile</Nav.Link>
-                  <Nav.Link onClick={logout}>🔐 Logout</Nav.Link>
+                  <Nav.Link as={Link} to="/profile">🔓 Perfil</Nav.Link>
+                  <Nav.Link onClick={()=> logout()} as={Link} to="/login">🔐 Cerrar Sesión</Nav.Link>
                 </>
               ) : (
                 <>
-                  <Nav.Link as={Link} to="/login">🔐 Login</Nav.Link>
-                  <Nav.Link as={Link} to="/register">🔐 Register</Nav.Link>
+                  <Nav.Link as={Link} to="/login">🔐 Iniciar sesión</Nav.Link>
+                  <Nav.Link as={Link} to="/register">🔐 Registrarse</Nav.Link>
                 </>
               )}
             </Nav>

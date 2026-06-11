@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { Link, useNavigate } from "react-router-dom";
+import { GlobalContext } from "../contexts/GlobalContext";
 
 function Login () {
+
+    const { user, setUser} = useContext(GlobalContext)
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -10,21 +16,36 @@ function Login () {
     const handleChangeEmail = (evento)=>{
         setEmail(evento)
     }
-    const handleSubmit = (e)=> {
-        e.preventDefault()
+    const handleSubmit = async (e)=> {
+        e.preventDefault();
+        console.log(email, password)
 
-        if ([email, password].includes("")) {
-        alert("Todos los campos son obligatorios");
-        return;
-        }
-        if(password.length < 6){
-            alert("La contraseña debe tener al menos 6 caracteres")
+        if(!email || !password || password.length < 6){
+            alert("Completa los campos, la contraseña debe tener más de 6 caracteres")
             return
+        }else{
+            const res = await fetch("http://localhost:5001/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({email, password})
+            })
+            let data = await res.json()
+
+            console.log(data)
+
+            if(data.error){
+                alert(data.error)
+                return
+            }else{
+                alert("Sesión iniciada correctamente, bienvenido");
+                let userLogged = { email: data.email, token: data.token };
+                setUser(userLogged);
+                localStorage.setItem("user", userLogged);
+                navigate("/")
+            }
         }
-        console.log("estoy enviando el form")
-        alert("Sesión iniciada correctamente")
-        setEmail("")
-        setPassword("")
     }
 
     return (
@@ -51,6 +72,13 @@ function Login () {
                     </div>
 
                     <button type="submit" className="btn btn-primary w-100">Iniciar sesión</button>
+                    <p className="text-center mt-3">¿No tienes una cuenta?{" "}
+                        <Link to={"/register"}>
+                        <span className="text-primary text-decoration-underline">
+                            Registrate
+                        </span>
+                        </Link>
+                    </p>
                     </form>
                 </div>
 
