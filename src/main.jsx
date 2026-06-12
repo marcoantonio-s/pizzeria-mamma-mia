@@ -12,16 +12,16 @@ import GlobalProvider from "./contexts/GlobalContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <GlobalProvider>
-      <UserProvider>
-        <CartProvider>
-          <ProductProvider>
-            <BrowserRouter>
+    <BrowserRouter>
+      <GlobalProvider>
+        <UserProvider>
+          <CartProvider>
+            <ProductProvider>
               <App />
-            </BrowserRouter>
-          </ProductProvider>
-        </CartProvider>
-      </UserProvider>
-    </GlobalProvider>
+            </ProductProvider>
+          </CartProvider>
+        </UserProvider>
+      </GlobalProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

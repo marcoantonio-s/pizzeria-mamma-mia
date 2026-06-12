@@ -65,6 +65,16 @@ export const CartProvider = ({ children }) => {
     setProducts(updatedProducts);
   };
 
+  const clearCart = () => {
+
+    const resetProducts = products.map(product => ({
+      ...product,
+      count: 0
+    }));
+
+    setProducts(resetProducts);
+  };
+
   const cartProducts = products.filter(product => product.count > 0);
 
   const total = cartProducts.reduce((acc, product) => {
@@ -78,6 +88,7 @@ export const CartProvider = ({ children }) => {
         cartProducts,
         addToCart,
         removeFromCart,
+        clearCart,
         total
       }}
     >
